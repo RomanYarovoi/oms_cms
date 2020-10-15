@@ -1,0 +1,22 @@
+{% load static mptt_tags news_tags %}
+<section class="blog_categorie_area">
+    <div class="container">
+        <div class="row">
+            {% for_category_list count=3 order="sort" as categories %}
+            {% for category in categories %}
+                <div class="col-lg-4">
+                    <div class="categories_post">
+                        {#                    <img src="{% static 'img/blog/cat-post/cat-post-3.jpg' %}" alt="post">#}
+                        <div class="categories_details">
+                            <div class="categories_text">
+                                <a href="{{ category.get_absolute_url }}"><h5>{{category.name}}</h5></a>
+                                <div class="border_line"></div>
+                                <p>{{category.description}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

@@ -1,73 +1,121 @@
-[![Build Status](https://travis-ci.org/DJWOMS/WomsTeam.svg?branch=master)](https://travis-ci.org/DJWOMS/WomsTeam)
+OMS CMS
+=======
+[![Build Status](https://travis-ci.org/DJWOMS/oms_cms.svg?branch=master)](https://travis-ci.org/DJWOMS/oms_cms)
+[![Coverage Status](https://coveralls.io/repos/github/DJWOMS/oms_cms/badge.svg?branch=master)](https://coveralls.io/github/DJWOMS/oms_cms?branch=master)
+[![License](https://img.shields.io/pypi/l/oms-cms)](https://opensource.org/licenses/BSD-3-Clause)
+[![Version](https://img.shields.io/pypi/v/oms-cms)](https://pypi.org/project/oms-cms/) 
+[![Slack](https://img.shields.io/badge/Slack-chat-green)](https://join.slack.com/t/oms-cms/) 
 
-# OMS CMS
+[Website](https://oms-cms.site/en/)
+
+[Documentation](https://oms-cms.readthedocs.io/ru/latest/)
+
+* Python = 3.7, 3.8
+* Django = 2.2, 3
+
+OMS CMS is designed for a wide range of developers.
+
+The system is open source, written using the Django framework in the Python programming language.
+
+This CMS was designed by developers for a quick start and easy scalability.
+OMS allows you to easily integrate with other django applications and use them immediately,
+Or create new compatible applications!
+
+This cms allows you to make a website in minutes.
+You can use the basic template or download from the official site.
+
+Modules
+-------
+* Pages
+* News
+   * Categories
+   * Articles
+   * Tags
+* Comments
+* Contacts
+* Info block
+* Languages, multilingualism
+* Menu
+* SEO
+* Partners
+* Search
+* Links to social networks
+* OpenGraph
+
+Installation:
+-------------
+
+Create virtual environment ::
+
+    python -m venv venv
+    
+Activate virtual environment
+
+Install CMS ::
+
+    pip install oms-cms
+    
+Create Project ::
+
+    oms-start
+    
+   
+[Development](https://github.com/DJWOMS/oms_cms/wiki/Development)
+
+__________________________________________________________
+
+[Сайт](https://oms-cms.site)
+
+[Документация](https://oms-cms.readthedocs.io/ru/latest/)
  
-- Python => 3.7
-- Django => 2
-- Postgres == 10
+* Python = 3.7, 3.8
+* Django = 2.2, 3
 
-**Установка:**
+OMS CMS создана для широкого круга разработчиков. 
 
-- pip install git+https://github.com/DJWOMS/oms_cms.git
+Система имеет открытый исходный код, написана с использованием фреймворка Django на языке программирования Python. 
 
-- django-admin startproject name --template=https://github.com/DJWOMS/oms_project/archive/master.zip
+Данная CMS была задумана разработчиками для быстрого старта и легкой масштабируемости. 
+OMS позволяет без трудностей интегрироваться с другими приложениями django и сразу же использовать их, 
+либо создавать новые совместимые приложения!
 
-**Develop**
+Данная cms позволяет сделать сайт за считанные минуту. 
+Вы можете использовать базовый шаблон или скачать с официального сайта.
 
-Создать файл oms_cms/config/local_settings.py и прописать конект к базе
-````
-# coding=utf-8
-import os
+Модули
+------
+* Страницы
+* Новости
+   * Категории
+   * Статьи
+   * Теги
+* Комментарии
+* Контакты
+* Инфо блк
+* Языки \ мультиязычность
+* Меню
+* SEO
+* Партнеры
+* Поиск
+* Ссылки на социальные сети
+* OpenGraph
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+Установка:
+----------
 
-DEBUG = True
+Создать виртуальное окружение ::
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+    python -m venv venv
+    
+Активировать виртуальное окружение
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'DB',
-        'USER': 'user',
-        'PASSWORD': 'pass',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
+Установить CMS ::
 
-
-STATIC_DIR = os.path.join(BASE_DIR, 'static')
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
-````
-- pip install -r req.txt
-
-Проверка стиля
-- flake8 your_apps
-
-Авто исправление
-- autopep8 ./your_apps --recursive -v --in-place -a
-
-**Команды**
-- Создание файлов миграций
--- python manage.py makemigrations
-- Применение миграций
--- python manage.py migrate
-- Создание супер пользователя
--- python manage.py createsuperuser
-- Создание пользователей
--- python manage.py adduser
-- Создание страниц
--- python manage.py addpage
-- Создание тестовых постов и категории
--- python manage.py addposts
-- Создание меню
--- python manage.py addmenu
-- Выполнение всех команд разом
--- python manage.py deploy
-- Выполнение всех команд разом и заполнить тест данными
--- python manage.py deployOMS
+    pip install oms-cms
+    
+Создать проект ::
+    
+    oms-start
 
 
-
+[Разработка](https://github.com/DJWOMS/oms_cms/wiki/Development)

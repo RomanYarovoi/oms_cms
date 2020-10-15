@@ -1,12 +1,12 @@
 from django import forms
 from django.contrib import admin
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
-from .models import Contact, ContactSocNet, Feedback, ContactFields, EmailsFeedback
+from .models import Contact, ContactSocNet, Feedback, ContactFields
 
 
 class ContactAdminForm(forms.ModelForm):
     """Виджет редактора ckeditor"""
-    desk_cont = forms.CharField(widget=CKEditorUploadingWidget())
+    description = forms.CharField(label="Описание", widget=CKEditorUploadingWidget(), required=False)
 
     class Meta:
         model = Contact
@@ -40,11 +40,6 @@ class ContactAdmin(admin.ModelAdmin):
 @admin.register(Feedback)
 class FeedbackAdmin(admin.ModelAdmin):
     """Обратная связь"""
-    list_display = ("full_name", "email", "tel", "theme", "id")
-    search_fields = ("theme", "full_name", "email", "tel")
-    list_filter = ("id", "theme", "full_name", "email", "tel")
-
-
-@admin.register(EmailsFeedback)
-class EmailsFeedbackAdmin(admin.ModelAdmin):
-    list_display = ("email", )
+    list_display = ("full_name", "email", "phone", "subject", "date", "id")
+    search_fields = ("subject", "full_name", "email", "phone")
+    list_filter = ("id", "subject", "full_name", "email", "phone")

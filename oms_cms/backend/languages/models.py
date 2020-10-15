@@ -1,49 +1,28 @@
+from django.contrib.sites.models import Site
+from django.conf import settings
 from django.db import models
-
-
-class Lang(models.Model):
-    """Модель языков"""
-    name = models.CharField("Название", max_length=100, help_text="Пример: Русский")
-    slug = models.SlugField("Сокращение названия", max_length=5, help_text="Пример: ru")
-
-    class Meta:
-        verbose_name = "Язык"
-        verbose_name_plural = "Языки"
-
-    def __str__(self):
-        return self.name
-
-
-def get_sentinel_lang():
-    """Получить или создать язык по умолчанию"""
-    return Lang.objects.get_or_create(name='Русский', slug='ru')[0]
-
-
-class LangDefault(models.Model):
-    """Язык по умолчанию"""
-    lang_default = models.OneToOneField(
-        Lang,
-        verbose_name="Язык по умолчанию",
-        on_delete=models.SET(get_sentinel_lang)
-    )
-
-    class Meta:
-        verbose_name = "Язык по умолчанию"
-        verbose_name_plural = "Язык по умолчанию"
-
-    def __str__(self):
-        return "{}".format(self.lang_default)
-
-    def get_list_lang(self):
-        return Lang.objects.filter(list_lang_id=self.id)
+from django.utils.translation import gettext_lazy as _
 
 
 class AbstractLang(models.Model):
     """Абстактная модель для языков"""
-    lang = models.ForeignKey(
-        Lang,
-        verbose_name="Язык",
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True
+    lang = models.CharField(_("Язык"), max_length=7, choices=settings.LANGUAGES, default='en')
+    slug = models.CharField(
+        _("url"),
+        help_text=_("Укажите url"),
+        max_length=500,
+        blank=True,
+        null=True
     )
+
+    def get_slug_url(self):
+        if not self.slug.endswith("/"):
+            slash = "/"
+        return f"{Site.objects.get_current().domain}/{self.slug}"
+
+    get_slug_url.short_description = 'Site url'
+    get_slug_url.allow_tags = True
+
+    class Meta:
+        unique_together = ('lang', 'slug')
+        abstract = True

@@ -2,43 +2,39 @@
 import os
 import sys
 
-from pip._internal.req import parse_requirements
 from setuptools import find_packages, setup
 
 CURRENT_PYTHON = sys.version_info[:2]
 REQUIRED_PYTHON = (3, 7)
 
 BUILD = 0
-VERSION = "0.15"
+VERSION = "0.11"
 RELEASE = VERSION
-
-# version = __import__('Moses-CMS').get_version()
 
 
 def read(fname):
-    with open(os.path.join(os.path.dirname(__file__), fname)) as f:
+    with open(os.path.join(os.path.dirname(__file__), fname), encoding='utf-8') as f:
         return f.read()
 
 
-install_reqs = parse_requirements('req.txt', session='hack')
-reqs = [str(ir.req) for ir in install_reqs]
+with open('req.txt') as f:
+    reqs = f.read().splitlines()
 
 setup(
     name='oms-cms',
     version=VERSION,
     python_requires='>={}.{}'.format(*REQUIRED_PYTHON),
-    url='https://djangochannel.com',
+    url='https://github.com/DJWOMS/oms_cms',
     author='DJWOMS - Omelchenko Michael',
-    author_email='djwoms@gmail.com',
+    author_email='socanime@gmail.com',
     description=('A high-level Python Web CMS'),
     long_description=read('README.md'),
     license='BSD',
     packages=['oms_cms'],
     include_package_data=True,
     install_requires=reqs,
-    # scripts=['django/bin/django-admin.py'],
     entry_points={'console_scripts': [
-        'start = django.core.management:execute_from_command_line',
+        'oms-start = oms_cms.scripts.create_project:cli_create',
     ]},
     # extras_require={
     #     "bcrypt": ["bcrypt"],
@@ -46,24 +42,25 @@ setup(
     # },
     zip_safe=False,
     classifiers=[
-        'Development Status :: 0.14 - Beta',
+        'Development Status :: 4 - Beta',
         'Environment :: Web Environment',
-        'CMS :: Moses-CMS',
+        'Framework :: Django',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3 :: Only',
         'Topic :: Internet :: WWW/HTTP',
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
-        'Topic :: Internet :: WWW/HTTP :: WSGI',
+        'Topic :: Software Development',
+        'Topic :: Software Development :: Libraries :: Application Frameworks',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
     project_urls={
-        # 'Documentation': 'https://',
+        'Documentation': 'https://oms-cms.readthedocs.io/ru/latest/',
         'Source': 'https://github.com/DJWOMS/oms_cms',
     },
 )

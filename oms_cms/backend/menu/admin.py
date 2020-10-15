@@ -1,73 +1,28 @@
 from django.contrib import admin
-from django import forms
 from mptt.admin import MPTTModelAdmin
-from django.contrib.contenttypes.models import ContentType
-from django.contrib.contenttypes.admin import GenericTabularInline, GenericStackedInline, GenericInlineModelAdmin
+
+from oms_cms.backend.utils.admin import ActionPublish
 from .models import Menu, MenuItem
-from jet.admin import CompactInline
-
-
-class CustomModelChoiceField(forms.ModelChoiceField):
-    def label_from_instance(self, obj):
-        # maybe you can find better solution to get app_label
-        return "{}".format(obj)
-
-
-# class FieldForm(forms.ModelForm):
-#     content_type = CustomModelChoiceField(queryset=ContentType.objects.all())
-#     #object_id = forms.IntegerField(widget=forms.ChoiceField(choices=((1, "content_type"),)))
-#     class Meta:
-#         model = MenuItem
-#         fields = ('object_id',)
-#         widgets = {
-#             'object_id': forms.Select(choices=(content_type))
-#         }
+from .forms import MenuItemAdminForm
 
 
 @admin.register(Menu)
-class MenuAdmin(admin.ModelAdmin):
+class MenuAdmin(ActionPublish):
     """Меню"""
-    list_display = ("name", "status")
+    list_display = ("name", "status", "published")
+    list_filter = ("published",)
+    actions = ['unpublish', 'publish']
 
 
 @admin.register(MenuItem)
-class MenuItemAdmin(admin.ModelAdmin):
+class MenuItemAdmin(MPTTModelAdmin, ActionPublish):
     """Пункты меню"""
-    # form = FieldForm
-    list_display = ("name", "parent", "menu", "id")
-    mptt_level_indent = 20
-    list_filter = ("menu", "parent")
+    form = MenuItemAdminForm
+    list_display = ("title", "name", "parent", "lang", "menu", "sort", "id", "published")
+    list_filter = ("menu", "parent", "lang", "published")
     search_fields = ("name", "parent", "menu")
-    fieldsets = (
-        (None, {
-            'fields': (
-                'name',
-                'parent',
-                'menu',
-                "status",
-            ),
+    save_as = True
+    list_editable = ("sort", )
+    mptt_level_indent = 20
+    actions = ['unpublish', 'publish']
 
-        }),
-        ('Ссылки', {
-            'fields': (
-                'url',
-                'anchor',
-                'content_type',
-                'object_id'
-            )
-        }),
-    )
-    # raw_id_fields = ('related_fk', 'related_m2m',)
-    # define the autocomplete_lookup_fields
-    # autocomplete_fields = ['content_type', 'object_id']
-    # autocomplete_fields = (
-    #     'content_type',
-    # )
-
-
-    # for c in ContentType.objects.all():
-    #     print(c.app_label, c.model)
-
-
-
-# admin.site.register(MenuItem, MenuItemAdmin)

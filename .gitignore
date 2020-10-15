@@ -1,11 +1,23 @@
 .idea
-
+idea
 dist
 db.sqlite3
 
 venv
 
 local_settings.py
+prod_settings.py
+
+/oms_cms/static/*
+!/oms_cms/static/js
+!/oms_cms/static/css
+!/oms_cms/static/ckeditor
+!/oms_cms/static/mptt
+!/oms_cms/static/img
+!/oms_cms/static/fonts
+!/oms_cms/static/scss2
+!/oms_cms/static/vendors
+
 
 **/migrations/**
 !**/migrations
@@ -16,8 +28,8 @@ __pycache__/
 .pyc
 *.pyc
 
-**/media/**
-!**/media
+/oms_cms/media/*
+
 
 .DS_Store
 *.egg-info/
@@ -25,7 +37,9 @@ __pycache__/
 *.egg
 
 build
-source
+doc
 home.rst
 make.bat
 Makefile
+
+doc-dev
